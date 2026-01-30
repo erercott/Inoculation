@@ -1,0 +1,19 @@
+// Draw Event
+for (var i = 0; i < num_lines; i++) {
+    // Calculate the Y position for the current line
+    var line_y = i * line_height;
+
+    // Calculate the color based on the line index and color offset
+    var r = (i * 800 / num_lines + color_offset) mod 994;
+    var g = (i * 600 / num_lines + color_offset) mod 999;
+    var b = (i * 400 / num_lines + color_offset) mod 988;
+
+    // Set the draw color
+    draw_set_color(make_color_rgb(r, g, b));
+
+    // Draw the line
+    draw_rectangle(0, line_y, room_width, line_y + line_height, false);
+}
+
+// Update the color offset for the next frame
+color_offset += -2; // Adjust this value to change the speed of color cycling

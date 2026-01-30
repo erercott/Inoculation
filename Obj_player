@@ -1,0 +1,50 @@
+var move_speed = 4;
+
+var move_x = 0;
+var move_y = 0;
+
+if (keyboard_check(vk_left)) { 
+    move_x = -move_speed; 
+}
+if (keyboard_check(vk_right)) { 
+    move_x = move_speed; 
+}
+if (keyboard_check(vk_up)) { 
+    move_y = -move_speed; 
+}
+if (keyboard_check(vk_down)) {
+    move_y = move_speed; 
+}
+
+x += move_x;
+y += move_y;
+
+if (y < 0) {
+    y = room_height; 
+} else if (y > room_height) {
+    y = 0; 
+}
+
+if (place_meeting(x, y, obj_warp) && can_transition) {
+    loop_count += 1;
+
+    if (loop_count >= 10) {
+        room_goto(End_Room);
+    } else {
+        current_room_index += 1;
+        if (current_room_index >= array_length(rooms)) {
+            current_room_index = 0; 
+        }
+        room_goto(rooms[current_room_index]);
+    }
+
+    can_transition = false; 
+}
+
+if (!place_meeting(x, y, obj_warp)) {
+    can_transition = true; 
+}
+
+if (keyboard_check_pressed(vk_escape)) {
+    game_restart();
+}
